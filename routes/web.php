@@ -9,3 +9,7 @@ Route::get('/', function () {
 use App\Http\Controllers\TaskController;
  
 Route::resource('tasks', TaskController::class);
+
+use App\Http\Controllers\historycontroller;
+ 
+Route::resource('tasks', TaskController::class);
