@@ -17,7 +17,7 @@ class TaskController extends Controller
     {
         $tasks = Task::where('status', false)->get();
  
-        return view('tasks.index', compact('tasks'));
+        return view('history.history', compact('history'));
     }
 
     /**

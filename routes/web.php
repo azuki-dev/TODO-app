@@ -12,4 +12,4 @@ Route::resource('tasks', TaskController::class);
 
 use App\Http\Controllers\historycontroller;
  
-Route::resource('tasks', TaskController::class);
+Route::resource('history', historycontroller::class);
