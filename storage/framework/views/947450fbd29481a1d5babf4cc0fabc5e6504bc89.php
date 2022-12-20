@@ -22,32 +22,13 @@
     <main class="grow">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="py-[100px]">
-            <p class="text-2xl font-bold text-center">今日は何する？</p>
+            <p class="text-2xl font-bold text-center">完了済みタスク</p>
   <form action="/tasks" method="post" class="mt-10">
-      @csrf
+      <?php echo csrf_field(); ?>
   
-      <div class="flex flex-col items-center">
-          <label class="w-full max-w-3xl mx-auto">
-              <input
-                  class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-4 pl-4 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                  placeholder="洗濯物をする..." type="text" name="task_name" />
-              @error('task_name')
-                  <div class="mt-3">
-                      <p class="text-red-500">
-                          {{ $message }}
-                      </p>
-                  </div>
-              @enderror
-          </label>
-  
-          <button type="submit"
-              class="mt-8 p-4 bg-slate-800 text-white w-full max-w-xs hover:bg-slate-900 transition-colors">
-              追加する
-          </button>
-      </div>
                 </form>
 
-                @if ($tasks->isNotEmpty())
+                <?php if($tasks->isNotEmpty()): ?>
       <div class="max-w-7xl mx-auto mt-20">
           <div class="inline-block min-w-full py-2 align-middle">
               <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
@@ -63,60 +44,50 @@
                           </tr>
                       </thead>
                       <tbody class="divide-y divide-gray-200 bg-white">
-                          @foreach ($tasks as $item)
+                          <?php $__currentLoopData = $tasks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                               <tr>
                                   <td class="px-3 py-4 text-sm text-gray-500">
                                       <div>
-                                          {{ $item->name }}
+                                          <?php echo e($item->name); ?>
+
                                       </div>
                                   </td>
                                   <td class="p-0 text-right text-sm font-medium">
                                       <div class="flex justify-end">
                                         <div>
-                                          <form action="/tasks/{{ $item->id }}"
+                                          <form action="/history/<?php echo e($item->id); ?>"
                                             method="post"
                                             class="inline-block text-gray-500 font-medium"
                                             role="menuitem" tabindex="-1">
-                                            @csrf
-                                            @method('PUT')
-                                            <input type="hidden" name="status" value="{{$item->status}}">
+                                            <?php echo csrf_field(); ?>
+                                            <?php echo method_field('PUT'); ?>
+                                            <input type="hidden" name="status" value="<?php echo e($item->status); ?>">
                                             <button type="submit"
-                                                class="bg-emerald-700 py-4 w-20 text-white md:hover:bg-emerald-800 transition-colors">完了</button>
+                                                class="bg-emerald-700 py-4 w-20 text-white md:hover:bg-emerald-800 transition-colors">未完了</button>
                                           </form>
                                         </div>
                                         <div>
-                                              <a href="/tasks/{{ $item->id }}/edit/"
-                                                  class="inline-block text-center py-4 w-20 underline underline-offset-2 text-sky-600 md:hover:bg-sky-100 transition-colors">編集</a>
-                                        </div>
-
-
-                                        <div>
                                              <form onsubmit="return deleteTask();"
-                                                action="/tasks/{{ $item->id }}" method="post"
+                                                action="/tasks/<?php echo e($item->id); ?>" method="post"
                                                 class="inline-block text-gray-500 font-medium"
                                                 role="menuitem" tabindex="-1">
-                                                 @csrf
-                                                 @method('DELETE')
-                                                <button type="submit"
-                                                     class="py-4 w-20 md:hover:bg-slate-200 transition-colors">削除</button>
+                                                 <?php echo csrf_field(); ?>
+                                                 <?php echo method_field('DELETE'); ?>
+
                                              </form>
                                          </div>
                                   </td>
                               </tr>
-                          @endforeach
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                       </tbody>
                   </table>
               </div>
           </div>
       </div>
-  @endif
+  <?php endif; ?>
             </div>
         </div>
     </main>
-<div class="hitstory"><a href="/history"
-    class="inline-block text-center py-4 w-20 underline underline-offset-2 text-sky-600 md:hover:bg-sky-100 transition-colors">完了タスク</a>
-</div>
-
     <footer class="bg-slate-800">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <div class="py-4 text-center">
@@ -124,17 +95,7 @@
         </div>
     </div>
     </footer>
-    
-<script>
-    function deleteTask() {
-        if (confirm('本当に削除しますか？')) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-  </script>
 
 </body>
  
-</html>
+</html><?php /**PATH C:\Users\CRE\Documents\TODO-app\resources\views/tasks/history.blade.php ENDPATH**/ ?>

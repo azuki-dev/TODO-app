@@ -17,7 +17,7 @@ class historyController extends Controller
     {
         $tasks = Task::where('status', true)->get();
  
-        return view('history.history', compact('tasks'));
+        return view('tasks.history', compact('tasks'));
     }
 
     /**
@@ -93,7 +93,7 @@ class historyController extends Controller
         //データベースに保存
         $task->save();
       } else {
-        //「完了」ボタンを押したとき
+        //「未完了」ボタンを押したとき
     
         //該当のタスクを検索
         $task = Task::find($id);
@@ -107,7 +107,7 @@ class historyController extends Controller
     
     
       //リダイレクト
-      return redirect('/history');
+      return redirect('/tasks');
     }
 
     /**

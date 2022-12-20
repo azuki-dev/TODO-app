@@ -98,6 +98,7 @@ unset($__errorArgs, $__bag); ?>
                                                   class="inline-block text-center py-4 w-20 underline underline-offset-2 text-sky-600 md:hover:bg-sky-100 transition-colors">編集</a>
                                         </div>
 
+
                                         <div>
                                              <form onsubmit="return deleteTask();"
                                                 action="/tasks/<?php echo e($item->id); ?>" method="post"
@@ -121,6 +122,10 @@ unset($__errorArgs, $__bag); ?>
             </div>
         </div>
     </main>
+<div class="hitstory"><a href="/history"
+    class="inline-block text-center py-4 w-20 underline underline-offset-2 text-sky-600 md:hover:bg-sky-100 transition-colors">完了タスク</a>
+</div>
+
     <footer class="bg-slate-800">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <div class="py-4 text-center">
