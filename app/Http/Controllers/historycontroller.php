@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Task;
 
-class TaskController extends Controller
+class historyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::where('status', false)->get();
+        $tasks = Task::where('status', true)->get();
  
-        return view('history.history', compact('history'));
+        return view('history.history', compact('tasks'));
     }
 
     /**
@@ -38,27 +38,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-          'task_name' => 'required|max:100',
-        ];
-         
-        $messages = ['required' => '必須項目です', 'max' => '100文字以下にしてください。'];
-         
-        Validator::make($request->all(), $rules, $messages)->validate();
-         
-         
-          
-        //モデルをインスタンス化
-        $task = new Task;
-         
-        //モデル->カラム名 = 値 で、データを割り当てる
-        $task->name = $request->input('task_name');
-         
-        //データベースに保存
-        $task->save();
-         
-        //リダイレクト
-        return redirect('/tasks');
+
     }
 
     /**
@@ -119,7 +99,7 @@ class TaskController extends Controller
         $task = Task::find($id);
     
         //モデル->カラム名 = 値 で、データを割り当てる
-        $task->status = true; //true:完了、false:未完了
+        $task->status = false; //true:完了、false:未完了
     
         //データベースに保存
         $task->save();
@@ -127,7 +107,7 @@ class TaskController extends Controller
     
     
       //リダイレクト
-      return redirect('/tasks');
+      return redirect('/history');
     }
 
     /**
@@ -138,8 +118,6 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        Task::find($id)->delete();
-  
-        return redirect('/tasks');
+
     }
 }
